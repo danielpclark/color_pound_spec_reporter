@@ -1,5 +1,8 @@
 # ColorPoundSpecReporter
 
+![](https://github.com/danielpclark/color_pound_spec_reporter/blob/master/example/color-output.png)
+
+This reporter will work with minitest-reporters as far back as 0.14.24 for compatibility with testing older Rails versions.  Also works with current minitest-reporters version 1+.
 
 ## Installation
 
@@ -28,7 +31,7 @@ Minitest::Reporters.use! [ColorPoundSpecReporter.new]
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/color_pound_spec_reporter/fork )
+1. Fork it ( https://github.com/danielpclark/color_pound_spec_reporter/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
