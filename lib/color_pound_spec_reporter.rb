@@ -13,37 +13,38 @@ class ColorPoundSpecReporter < Minitest::Reporters::SpecReporter
 
   def failure(suite, test, test_runner)
     common_print(suite, test, :red, 'FAIL')
-    print_exception(test_runner.exception)
+    print_exception(test_runner.exception, 'FAIL')
   end
 
   def error(suite, test, test_runner)
     common_print(suite, test, :red, 'ERROR')
-    print_exception(test_runner.exception)
+    print_exception(test_runner.exception, 'ERROR')
   end
 
   # Just in case we load a more recent minitest-reporters v1
   def record(test)
     Minitest::Reporters::BaseReporter.instance_method(:record).bind(self).call(test)
-    print pad_test(test.name) if test.failure
     print_colored_status(test)
     print(" (%.2fs)" % test.time)
-    print " :: #{color_pound test.name}" unless test.failure
-    puts
-    print_exception(test.failure) if !test.skipped? && test.failure
+    print " :: #{color_pound test.name}"
+    if !test.skipped? && test.failure
+      print_exception(test.failure, test.error? ? 'ERROR' : '' )
+    else
+      puts
+    end
   end
 
   private
   def common_print(suite, test, color, message)
     print_suite(suite) unless @suites.include?(suite)
-    print pad_test(test) if color.eql?(:red)
     print( send(color) { pad_mark(message) } )
     print_time(test)
-    print " :: #{color_pound test}" unless color.eql?(:red)
+    print " :: #{color_pound test}"
     puts
   end
 
-  def print_exception(ex)
-    print_info(ex)
+  def print_exception(ex, kind)
+    print color_pound "\n\n#{"    " if kind.=~(/error/i)}#{ex}\n\n"
     puts
   end
 
@@ -51,7 +52,8 @@ class ColorPoundSpecReporter < Minitest::Reporters::SpecReporter
     str.to_s.gsub(/(?<foo>(?<!:)(?:#|:)\w{1,}\??)/, ANSI::Code.yellow('\k<foo>')).
       gsub(/(?<foo>[A-Z]\S*)/, ANSI::Code.cyan('\k<foo>')).
       gsub(/(?<foo>(?:NIL|NULL|ERROR|FAIL|EXCEPTION|FALSE))/i, ANSI::Code.red('\k<foo>')).
-      gsub(/(?<foo>(?:self|true))/, ANSI::Code.green('\k<foo>'))
+      gsub(/(?<foo>(?:self|true))/, ANSI::Code.green('\k<foo>')).
+      gsub(/(?<foo>(?:Expected|Actual):)/, ANSI::Code.bold(ANSI::Code.white('\k<foo>')))
   end
 
 end
