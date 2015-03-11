@@ -2,6 +2,8 @@
 
 ![](https://github.com/danielpclark/color_pound_spec_reporter/blob/master/example/color-output.png)
 
+This reporter will work with minitest-reporters as far back as 0.14.24 for compatibility with testing older Rails versions.  Also works with current minitest-reporters version 1+.
+
 ## Installation
 
 Add this line to your application's Gemfile:
