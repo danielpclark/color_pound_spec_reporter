@@ -1,5 +1,6 @@
 # ColorPoundSpecReporter
 
+![](https://github.com/danielpclark/color_pound_spec_reporter/blob/master/example/color-output.png)
 
 ## Installation
 
