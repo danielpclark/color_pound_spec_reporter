@@ -6,9 +6,10 @@ This reporter will work with minitest-reporters as far back as 0.14.24 for compa
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this to your application's Gemfile:
 
 ```ruby
+gem 'minitest-reporters'
 gem 'color_pound_spec_reporter'
 ```
 
