@@ -44,7 +44,23 @@ class ColorPoundSpecReporter < Minitest::Reporters::SpecReporter
   end
 
   def print_exception(ex, kind)
-    print color_pound "\n\n#{"    " if kind.=~(/error/i)}#{ex}\n\n"
+    print color_pound "\n\n"
+    # print color_pound "#{ex.exception.class.to_s}: \n" 
+    ex.message.each_line.with_index { |line, ind|
+      line = line.gsub(/\A */, "")
+      if kind.=~(/error/i) && ind.==(0)
+        puts "    #{color_pound line}\n"
+      else
+        puts color_pound line
+      end
+    }
+    puts
+    # When e is a Minitest::UnexpectedError, the filtered backtrace is already part of the message printed out
+    # by the previous line. In that case, and that case only, skip the backtrace output.
+    unless ex.is_a?(MiniTest::UnexpectedError)
+      trace = filter_backtrace(ex.backtrace)
+      trace.each { |line| puts color_pound line.gsub(/\A */, "") }
+    end
     puts
   end
 
