@@ -1,5 +1,6 @@
 require 'color_pound_spec_reporter/version'
 require 'minitest/reporters'
+require 'ansi/code'
 
 class ColorPoundSpecReporter < Minitest::Reporters::SpecReporter
   # minitest-reporters methods for version 0.14.24
