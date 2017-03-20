@@ -38,7 +38,7 @@ Minitest::Reporters.use! [ColorPoundSpecReporter.new]
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-##License
+## License
 
 The MIT License (MIT)
 
